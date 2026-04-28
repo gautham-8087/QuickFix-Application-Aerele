@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "TECH-.#### ",
  "creation": "2026-04-28 11:09:05.443958",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -12,7 +13,9 @@
   "specialization",
   "status",
   "photo",
-  "joining_date"
+  "joining_date",
+  "user",
+  "notes"
  ],
  "fields": [
   {
@@ -46,10 +49,14 @@
    "options": "Device Type"
   },
   {
+   "default": "Active",
+   "depends_on": "eval:doc.status==\"On Leave\"",
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_filter": 1,
+   "in_list_view": 1,
    "label": "Status",
-   "options": "Active / On Leave / Resigned"
+   "options": "Active\nOn Leave\nResigned"
   },
   {
    "fieldname": "photo",
@@ -60,15 +67,28 @@
    "fieldname": "joining_date",
    "fieldtype": "Date",
    "label": "Joining Date"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text",
+   "label": "Notes"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-28 11:14:02.256637",
+ "modified": "2026-04-28 11:34:58.913546",
  "modified_by": "Administrator",
  "module": "QuickFix",
  "name": "Technician",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
