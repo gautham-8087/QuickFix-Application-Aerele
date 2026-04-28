@@ -55,4 +55,4 @@ Putting secrets in common_site_config.json is risky because all sites can access
 -> bench start runs four processes: web (handles requests), worker (executes background jobs), scheduler (runs scheduled tasks), and socketio (real-time updates).
 
 If the worker crashes, background jobs stay in the queue and are not executed until the worker restarts, causing delays.
-# QuickFix-Application-Aerele
+
