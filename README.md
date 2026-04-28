@@ -58,6 +58,8 @@ If the worker crashes, background jobs stay in the queue and are not executed un
 
 ### Child Table Internals
 
+Section - C1
+
 1. When you append a row to Job Card.parts_used and save, what 4 columns does Frappe automatically set on the child table row?
 
 -> There are 4 columns:
@@ -73,3 +75,16 @@ If the worker crashes, background jobs stay in the queue and are not executed un
 3. If you delete row at idx=2 and re-save, what happens to idx values of remaining rows?
 
 -> Frappe automatically reorders the rows. So, before -> 1 2 3 After -> 1 2 (No Gaps)
+
+###  Renaming task - write in README.md:
+
+Section - C3
+
+1. Rename one of your test Technician records using the Rename Document feature. Then check: does the assigned_technician field on linked Job Cards automatically update? Why or why not? What does "track changes" mean in this context?
+
+-> When a Technician record is renamed using the Rename Document feature, the assigned_technician field in linked Job Cards automatically updates.This happens because Frappe maintains link integrity, so all references to that Technician are updated everywhere.Track Changes means Frappe records all changes made to the document (like rename or field updates).When enabled, we can see the old value -> new value like (0-1) (1-0)
+
+2. Explain unique constraints: what is the difference between setting a field as "unique" in the DocType vs doing a frappe.db.exists() check in validate()?
+
+-> When a field is set as unique, it means the same value cannot be repeated in that field.
+If you try to save a duplicate value, the system will throw an error and not allow it.So, in unique field database will block the duplicae values but in frappe.db.exists we need to manually check the code
