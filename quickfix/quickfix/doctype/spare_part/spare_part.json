@@ -5,18 +5,71 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_w3ns"
+  "part_name",
+  "part_code",
+  "compatible_device_type",
+  "unit_cost",
+  "selling_price",
+  "stock_qty",
+  "reorder_level",
+  "is_active"
  ],
  "fields": [
   {
-   "fieldname": "section_break_w3ns",
-   "fieldtype": "Section Break"
+   "fieldname": "part_name",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Part Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "part_code",
+   "fieldtype": "Data",
+   "label": "Part Code",
+   "unique": 1
+  },
+  {
+   "fieldname": "compatible_device_type",
+   "fieldtype": "Link",
+   "label": "Compatible Device Type",
+   "options": "Device Type"
+  },
+  {
+   "fieldname": "unit_cost",
+   "fieldtype": "Currency",
+   "label": "Unit Cost",
+   "reqd": 1
+  },
+  {
+   "fieldname": "selling_price",
+   "fieldtype": "Currency",
+   "label": "Selling Price",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "stock_qty",
+   "fieldtype": "Float",
+   "label": "Stock Qty"
+  },
+  {
+   "default": "5",
+   "fieldname": "reorder_level",
+   "fieldtype": "Float",
+   "label": "Reorder Level"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-28 11:36:21.156268",
+ "modified": "2026-04-28 11:42:08.253775",
  "modified_by": "Administrator",
  "module": "QuickFix",
  "name": "Spare Part",
