@@ -56,3 +56,20 @@ Putting secrets in common_site_config.json is risky because all sites can access
 
 If the worker crashes, background jobs stay in the queue and are not executed until the worker restarts, causing delays.
 
+### Child Table Internals
+
+1. When you append a row to Job Card.parts_used and save, what 4 columns does Frappe automatically set on the child table row?
+
+-> There are 4 columns:
+    parent → name of the parent document
+    parenttype → parent DocType 
+    parentfield → field name 
+    idx → row order
+
+2. What is the DB table name for the Part Usage Entry DocType?
+
+-> tabPart Usage Entry
+
+3. If you delete row at idx=2 and re-save, what happens to idx values of remaining rows?
+
+-> Frappe automatically reorders the rows. So, before -> 1 2 3 After -> 1 2 (No Gaps)
