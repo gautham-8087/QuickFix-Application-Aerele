@@ -21,11 +21,11 @@ class JobCard(Document):
 
 		total = 0
 
-		for row in self.parts_used or []:
-			if row.quantity <= 0:
-				frappe.throw(_("Quantity must be greater than 0 for {0}").format(row.part))
+		for row in self.get("parts_used") or []:
+			if (row.get("quantity") or 0) <= 0:
+				frappe.throw(_("Quantity must be greater than 0 for {0}").format(row.get("part")))
 
-			row.total_price = (row.quantity or 0) * (row.unit_price or 0)
+			row.total_price = (row.get("quantity") or 0) * (row.get("unit_price") or 0)
 			total += row.total_price
 
 		self.parts_total = total
