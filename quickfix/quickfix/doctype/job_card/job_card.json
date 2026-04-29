@@ -30,7 +30,8 @@
   "payment_status",
   "delivery_date",
   "remarks",
-  "status"
+  "status",
+  "amended_from"
  ],
  "fields": [
   {
@@ -174,18 +175,30 @@
    "label": "Remarks"
   },
   {
+   "allow_on_submit": 1,
+   "default": "Draft",
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Status",
    "options": "Draft\nPending Diagnosis\nAwaiting Customer Approval\nIn Repair\nReady for Delivery\nDelivered\nCancelled"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Job Card",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-28 15:18:33.696726",
+ "modified": "2026-04-29 10:52:22.667363",
  "modified_by": "Administrator",
  "module": "QuickFix",
  "name": "Job Card",

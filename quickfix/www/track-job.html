@@ -1,0 +1,46 @@
+<h2>Track Your Repair Job</h2>
+
+<form method="get">
+    <input type="text" name="job_card" placeholder="Enter Job Card ID">
+    <button type="submit">Track</button>
+</form>
+
+{% if job %}
+
+    <h3>Job Details</h3>
+    <p><b>Job ID:</b> {{ job.name }}</p>
+    <p><b>Customer:</b> {{ job.customer_name }}</p>
+    <p><b>Status:</b> {{ job.status }}</p>
+    <p><b>Estimated Cost:</b> {{ job.estimated_cost }}</p>
+
+    {% if job.status == "Awaiting Customer Approval" %}
+        <button onclick="approve()">Approve</button>
+        <button onclick="reject()">Reject</button>
+    {% endif %}
+
+    <!-- ✅ Move JS inside this block -->
+    <script>
+    function approve() {
+        update_status("approve");
+    }
+
+    function reject() {
+        update_status("reject");
+    }
+
+    function update_status(action) {
+        frappe.call({
+            method: "quickfix.api.customer_decision",
+            args: {
+                job_card: "{{ job.name }}",
+                action: action
+            },
+            callback: function(r) {
+                alert("Status updated to " + r.message.new_status);
+                location.reload();
+            }
+        });
+    }
+    </script>
+
+{% endif %}
