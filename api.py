@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 
 
 def autoname(self):
@@ -7,4 +8,4 @@ def autoname(self):
 
 def validate(self):
 	if self.selling_price <= self.unit_cost:
-		frappe.throw("Selling price must be greater than unit cost")
+		frappe.throw(_("Selling price must be greater than unit cost"))

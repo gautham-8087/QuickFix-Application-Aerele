@@ -46,15 +46,11 @@ Section - A2
 
 1. what each config file is for, and what breaks if you accidentally put a secret in common_site_config.json
 
--> common_site_config.json is shared across all sites, while site_config.json is specific to one site and stores sensitive data.
-
-Putting secrets in common_site_config.json is risky because all sites can access them, leading to security leaks.
+-> common_site_config.json is shared across all sites, while site_config.json is specific to one site and stores sensitive data. Putting secrets in common_site_config.json is risky because all sites can access them, leading to security leaks.
 
 2. list the 4 processes bench start launches (web, worker, scheduler,socketio) and explain what happens to background jobs if the worker process crashes. 
 
--> bench start runs four processes: web (handles requests), worker (executes background jobs), scheduler (runs scheduled tasks), and socketio (real-time updates).
-
-If the worker crashes, background jobs stay in the queue and are not executed until the worker restarts, causing delays.
+-> bench start runs four processes: web (handles requests), worker (executes background jobs), scheduler (runs scheduled tasks), and socketio (real-time updates). If the worker crashes, background jobs stay in the queue and are not executed until the worker restarts, causing delays.
 
 ### Child Table Internals
 
