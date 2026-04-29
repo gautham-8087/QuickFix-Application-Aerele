@@ -20,3 +20,40 @@ class JobCard(Document):
 			and self.status == "Pending Diagnosis"
 		):
 			self.status = "Awaiting Customer Approval"
+
+		total = 0
+
+		for row in self.parts_used:
+			if row.quantity <= 0:
+				frappe.throw(f"Quantity must be greater than 0 for {row.part}")
+
+			row.total_price = row.quantity * row.unit_price
+			total += row.total_price
+
+		self.parts_total = total
+
+		# Optional but recommended
+		self.final_amount = self.parts_total + (self.labour_charge or 0)
+
+	def before_submit(self):
+		if self.status != "Ready for Delivery":
+			frappe.throw("Only Ready for Delivery jobs can be submitted")
+
+	def on_submit(self):
+		existing_invoice = frappe.db.exists("Service Invoice", {"job_card": self.name})
+
+		if existing_invoice:
+			return
+
+		invoice = frappe.get_doc(
+			{
+				"doctype": "Service Invoice",
+				"job_card": self.name,
+				"labour_charge": self.labour_charge,
+				"parts_total": self.parts_total,
+				"total_amount": self.final_amount,
+				"payment_status": "Unpaid",
+			}
+		)
+
+		invoice.insert(ignore_permissions=True)

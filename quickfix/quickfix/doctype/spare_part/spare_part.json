@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "SP-.YYYY.-.#####",
  "creation": "2026-04-28 11:36:21.156268",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -69,10 +70,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-04-28 18:03:04.919862",
+ "modified": "2026-04-29 12:53:45.331040",
  "modified_by": "Administrator",
  "module": "QuickFix",
  "name": "Spare Part",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

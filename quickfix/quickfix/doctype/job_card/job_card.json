@@ -26,7 +26,7 @@
   "financials_and_delivery_section",
   "parts_total",
   "labour_charge",
-  "final_mount",
+  "final_amount",
   "payment_status",
   "delivery_date",
   "remarks",
@@ -151,11 +151,6 @@
    "label": "Labour Charge"
   },
   {
-   "fieldname": "final_mount",
-   "fieldtype": "Currency",
-   "label": "Final Amount"
-  },
-  {
    "allow_on_submit": 1,
    "default": "Unpaid",
    "fieldname": "payment_status",
@@ -192,13 +187,18 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "final_amount",
+   "fieldtype": "Currency",
+   "label": "Final Amount"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-29 10:52:22.667363",
+ "modified": "2026-04-29 13:17:57.003322",
  "modified_by": "Administrator",
  "module": "QuickFix",
  "name": "Job Card",
