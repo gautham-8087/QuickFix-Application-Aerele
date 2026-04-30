@@ -53,3 +53,15 @@ def get_job_details():
 		"status": doc.status,
 		"estimated_cost": doc.estimated_cost,
 	}
+
+
+@frappe.whitelist()
+def share_job_card(job_card_name, user_email):
+	frappe.share.add(doctype="Job Card", name=job_card_name, user=user_email, read=1, write=0, share=0)
+	return "Shared successfully"
+
+
+@frappe.whitelist()
+def Manager_only_action():
+	frappe.only_for("QF Manager")
+	return "You are allowed"

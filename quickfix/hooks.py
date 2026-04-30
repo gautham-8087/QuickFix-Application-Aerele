@@ -249,3 +249,8 @@ app_license = "mit"
 
 
 fixtures = ["Device Type"]
+
+fixtures = [
+	"Role",
+	{"doctype": "DocPerm", "filters": [["role", "in", ["QF Service Staff", "QF Technician", "QF Manager"]]]},
+]

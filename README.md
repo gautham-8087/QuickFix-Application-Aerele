@@ -133,3 +133,274 @@ methods. What does the browser receive?
 1. In a whitelisted method, call frappe.get_doc("Job Card", name) WITHOUT ignore_permissions. Then log in as a QF Technician user who is NOT assigned to that job. What error is raised and at what layer does Frappe stop the request?
 
 -> frappe.permissionError is raised in this situation and Frappe does stop the request at the frappe.model.Document.get_doc. normally permission is enforced in the data accesss layer.
+
+### Part A - Table naming (bench console, write output in README_internals.md): 
+
+Section - B2
+
+1. Run: frappe.db.sql("SHOW TABLES LIKE '%Job%'") and list what you see. Explain the tab prefix convention.
+
+-> In [1]: frappe.db.sql("SHOW TABLES LIKE '%Job%'")
+   Out[1]: (('tabJob Card',), ('tabScheduled Job Log',), ('tabScheduled Job Type',))
+   -> tab should be followed by the doctype name.For Ex: Job Card -> tabJob Card
+
+2. Run: frappe.db.sql("DESCRIBE `tabJob Card`", as_dict=True) and list 5 column names you recognise from your DocType fields.
+
+-> In [2]: frappe.db.sql("DESCRIBE `tabJob Card`", as_dict=True)
+Out[2]: 
+[{'Field': 'name',
+  'Type': 'varchar(140)',
+  'Null': 'NO',
+  'Key': 'PRI',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'creation',
+  'Type': 'datetime(6)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'modified',
+  'Type': 'datetime(6)',
+  'Null': 'YES',
+  'Key': 'MUL',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'modified_by',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'owner',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'docstatus',
+  'Type': 'int(1)',
+  'Null': 'NO',
+  'Key': '',
+  'Default': '0',
+  'Extra': ''},
+ {'Field': 'idx',
+  'Type': 'int(8)',
+  'Null': 'NO',
+  'Key': '',
+  'Default': '0',
+  'Extra': ''},
+ {'Field': 'amended_from',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': 'MUL',
+  'Default': None,
+  'Extra': ''},
+ {'Field': '_user_tags',
+  'Type': 'text',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': '_comments',
+  'Type': 'text',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': '_assign',
+  'Type': 'text',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': '_liked_by',
+  'Type': 'text',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'customer_name',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'customer_phone',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'customer_email',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'device_type',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'device_brand',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'device_model',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'imei_or_serial',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'problem_description',
+  'Type': 'longtext',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'h',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'assigned_technician',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'diagnosis_notes',
+  'Type': 'longtext',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'estimated_cost',
+  'Type': 'decimal(21,9)',
+  'Null': 'NO',
+  'Key': '',
+  'Default': '0.000000000',
+  'Extra': ''},
+ {'Field': 'diagnosis_date',
+  'Type': 'date',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'priority',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': 'Normal',
+  'Extra': ''},
+ {'Field': 'parts_total',
+  'Type': 'decimal(21,9)',
+  'Null': 'NO',
+  'Key': '',
+  'Default': '0.000000000',
+  'Extra': ''},
+ {'Field': 'labour_charge',
+  'Type': 'decimal(21,9)',
+  'Null': 'NO',
+  'Key': '',
+  'Default': '500.000000000',
+  'Extra': ''},
+ {'Field': 'final_mount',
+  'Type': 'decimal(21,9)',
+  'Null': 'NO',
+  'Key': '',
+  'Default': '0.000000000',
+  'Extra': ''},
+ {'Field': 'payment_status',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': 'Unpaid',
+  'Extra': ''},
+ {'Field': 'delivery_date',
+  'Type': 'date',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'remarks',
+  'Type': 'text',
+  'Null': 'YES',
+  'Key': '',
+  'Default': None,
+  'Extra': ''},
+ {'Field': 'status',
+  'Type': 'varchar(140)',
+  'Null': 'YES',
+  'Key': '',
+  'Default': 'Draft',
+  'Extra': ''},
+ {'Field': 'final_amount',
+  'Type': 'decimal(21,9)',
+  'Null': 'NO',
+  'Key': '',
+  'Default': '0.000000000',
+  'Extra': ''}]
+
+### Part D - DocStatus transitions (write answers in README_internals.md):
+
+1. What are the three numeric values of docstatus and what state does each represent?
+
+-> 0 - Draft (Can be edited freely)
+   1 - Sumbitted (Cannot be edited)
+   2 - Cancelled (No longer active)
+
+2. Can you call doc.save() on a submitted document? What about doc.submit() on a cancelled one? Test in bench console and explain why.
+
+->  doc.save() - No, Because it is already final, so you can’t edit it.
+    doc.submit() -  No, Because it is already cancelled, so you can’t submit it again.
+
+3. Why would you see a "Document has been modified after you have opened it" error and how does Frappe prevent concurrent overwrites?
+
+-> Frappe checks the modified time to prevent overwriting someone else’s changes.
+
+### Part E - Dangerous patterns (identify and fix) (add the correct version with explanation in README_internals.md):
+
+1. The following snippet has TWO bugs related to document lifecycle. Identify both and writen the corrected version:
+def validate(self):
+    self.total = sum(r.amount for r in self.items)
+    self.save()
+    other = frappe.get_doc("Spare Part", self.part)
+    other.stock_qty -= self.qty
+    other.save()
+
+-> self.save() - Wrong, Because validate() function already runs during save. So,Calling save() function again → causes recursion loop / crash 
+-> other.save() - Wrong, Because You should not update another document in validate() Lifecycle rule violation 
+
+### Section D1
+
+In bench console: call frappe.get_doc_permissions(doc) on a Job Card while logged in as different users. Document what the return dict looks like.
+
+    In [7]: doc = frappe.get_doc("Job Card", "JC-2026-00001")
+    frappe.permissions.get_doc_permissions(doc)
+    Out[7]: 
+    {'select': 1,
+    'read': 1,
+    'write': 1,
+    'create': 1,
+    'delete': 1,
+    'submit': 1,
+    'cancel': 1,
+    'amend': 1,
+    'print': 1,
+    'email': 1,
+    'report': 1,
+    'import': 0,
+    'export': 1,
+    'share': 1}
