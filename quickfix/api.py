@@ -56,7 +56,7 @@ def get_job_details():
 
 
 @frappe.whitelist()
-def share_job_card(job_card_name, user_email):
+def share_job_card(job_card_name: str, user_email: str) -> str:
 	frappe.share.add(doctype="Job Card", name=job_card_name, user=user_email, read=1, write=0, share=0)
 	return "Shared successfully"
 
