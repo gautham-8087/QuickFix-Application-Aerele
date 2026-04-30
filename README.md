@@ -404,3 +404,11 @@ In bench console: call frappe.get_doc_permissions(doc) on a Job Card while logge
     'import': 0,
     'export': 1,
     'share': 1}
+
+### Sections D2
+What is the issues in using frappe.get_all in a whitelisted method that is exposed to guests
+or low-privilege users. Explain it in the context of permission_query_conditions
+
+-> It bypasses permission_query_conditions
+-> Returns all records
+-> Ignores user roles

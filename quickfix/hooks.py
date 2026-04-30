@@ -254,3 +254,11 @@ fixtures = [
 	"Role",
 	{"doctype": "DocPerm", "filters": [["role", "in", ["QF Service Staff", "QF Technician", "QF Manager"]]]},
 ]
+
+permission_query_conditions = {
+	"Job Card": "quickfix.quickfix.doctype.job_card.job_card.permission_query_conditions"
+}
+
+has_permission = {
+	"Service Invoice": "quickfix.quickfix.doctype.service_invoice.service.invoice.has_permission"
+}

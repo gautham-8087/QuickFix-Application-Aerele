@@ -34,3 +34,13 @@ class JobCard(Document):
 	def before_submit(self):
 		if self.status != "Ready for Delivery":
 			frappe.throw(_("Only Ready for Delivery jobs can be submitted"))
+
+
+def permission_query_conditions(user):
+	if "QF Technician" in frappe.get_roles(user):
+		return f"""
+			`tabJob Card`.assigned_technician IN (
+				SELECT name FROM `tabTechnician`
+				WHERE user = {frappe.db.escape(user)}
+			)
+		"""
