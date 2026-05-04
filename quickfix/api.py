@@ -88,7 +88,7 @@ def get_job_cards_safe():
 
 
 @frappe.whitelist()
-def rename_technician(old_name, new_name):
+def rename_technician(old_name: str, new_name: str) -> None:
 	frappe.rename_doc("Technician", old_name, new_name, merge=False)
 
 
