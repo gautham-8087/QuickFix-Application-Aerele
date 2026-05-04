@@ -422,3 +422,21 @@ or low-privilege users. Explain it in the context of permission_query_conditions
 -> We can prevent in two methods.
     1. use the frappe.db.set_value, instead of self.save()
     2. Move the logic of on_update into validate or before_save
+
+# Part B - Upgrade friction analysis:
+
+ 1. why is doc_events safer than override_doctype_class for most use cases?
+
+ -> doc_events is considered safer because it extends behaviour without replacing the core controller class. It hooks into lifecycle events such as validate, before_save, on_submit, aloowing custom logic to run alongside existing framework logic.
+
+# Part C - Controller method for Spare Part (frappe.db performance):
+
+1. Which of the below pattern would you use and and explain why
+        doc = frappe.get_doc("QuickFix Settings", "QuickFix Settings")
+        threshold = doc.low_stock_threshold
+        threshold = frappe.db.get_value("QuickFix Settings", None,
+        "low_stock_threshold")
+
+-> I will use frappe.db.get_value because it is faster to find data and fetches only required field.
+
+
