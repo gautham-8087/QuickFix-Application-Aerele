@@ -412,3 +412,13 @@ or low-privilege users. Explain it in the context of permission_query_conditions
 -> It bypasses permission_query_conditions
 -> Returns all records
 -> Ignores user roles
+
+### Section E1
+
+1. Call self.save() inside on_update and see to the issues of it and explain them in the same readme_internals. Correct the pattern and explain it.
+
+-> Calling self.save() inside on_update() causes infinite recursion because save() triggers on_update() again. This leads to a loop that crashes the system.
+
+-> We can prevent in two methods.
+    1. use the frappe.db.set_value, instead of self.save()
+    2. Move the logic of on_update into validate or before_save
