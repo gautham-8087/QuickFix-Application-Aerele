@@ -53,3 +53,48 @@ def get_job_details():
 		"status": doc.status,
 		"estimated_cost": doc.estimated_cost,
 	}
+
+
+@frappe.whitelist()
+def share_job_card(job_card_name: str, user_email: str) -> str:
+	frappe.share.add(doctype="Job Card", name=job_card_name, user=user_email, read=1, write=0, share=0)
+	return "Shared successfully"
+
+
+@frappe.whitelist()
+def Manager_only_action():
+	frappe.only_for("QF Manager")
+	return "You are allowed"
+
+
+@frappe.whitelist()
+def get_job_cards_unsafe():
+	return frappe.get_all("Job Card", fields="*")
+
+
+@frappe.whitelist()
+def get_job_cards_safe():
+	import frappe
+
+	user = frappe.session.user
+	is_manager = "QF Manager" in frappe.get_roles(user)
+
+	fields = ["name", "customer_name", "status", "assigned_technician", "final_amount"]
+
+	if is_manager:
+		fields += ["customer_phone", "customer_email"]
+
+	return frappe.get_list("Job Card", fields=fields)
+
+
+@frappe.whitelist()
+def rename_technician(old_name: str, new_name: str) -> None:
+	frappe.rename_doc("Technician", old_name, new_name, merge=False)
+
+
+# When combining the two documents into one, so merge = true would be dangerous. The reason is data loss due to merging.
+
+
+@frappe.whitelist()
+def validate_handler():
+	print("validate_handler from api")

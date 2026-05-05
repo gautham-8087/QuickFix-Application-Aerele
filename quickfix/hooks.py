@@ -249,3 +249,39 @@ app_license = "mit"
 
 
 fixtures = ["Device Type"]
+
+fixtures = [
+	"Role",
+	{"doctype": "DocPerm", "filters": [["role", "in", ["QF Service Staff", "QF Technician", "QF Manager"]]]},
+]
+
+permission_query_conditions = {
+	"Job Card": "quickfix.quickfix.doctype.job_card.job_card.permission_query_conditions"
+}
+
+has_permission = {
+	"Service Invoice": "quickfix.quickfix.doctype.service_invoice.service.invoice.has_permission"
+}
+
+override_doctype_class = {"Job Card": "quickfix.overrides.custom_job_card.CustomJobCard"}
+
+doc_events = {
+	"*": {
+		"on_update": "quickfix.audit.log_change",
+		"on_submit": "quickfix.audit.log_change",
+		"on_cancel": "quickfix.audit.log_change",
+	},
+	"Job Card": {"validate": "quickfix.api.validate_handler"},
+}
+
+after_install = "quickfix.setup.after_install"
+
+before_uninstall = "quickfix.setup.before_uninstall"
+
+extend_bootinfo = "quickfix.boot.extend_bootinfo"
+
+on_session_creation = "quickfix.audit.log_login"
+
+on_logout = "quickfix.audit.log_logout"
+
+jinja = {"methods": ["quickfix.utils.get_shop_name"], "filters": ["quickfix.utils.format_job_id"]}
