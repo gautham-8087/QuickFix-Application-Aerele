@@ -439,4 +439,12 @@ or low-privilege users. Explain it in the context of permission_query_conditions
 
 -> I will use frappe.db.get_value because it is faster to find data and fetches only required field.
 
+# Section F1
 
+1. in what order do they run? What happens if both raise a frappe.ValidationError?
+
+-> Controller runs first; if it throws a frappe.ValidationError, execution stops and then the  doc_events hook won’t run.
+
+2. Demonstrate: what happens when you register "*" AND a specific DocType handler for the same event? Do both run?
+
+-> Both also runs but first the * will run and then the specific doctype handles of the event will run.

@@ -93,3 +93,8 @@ def rename_technician(old_name: str, new_name: str) -> None:
 
 
 # When combining the two documents into one, so merge = true would be dangerous. The reason is data loss due to merging.
+
+
+@frappe.whitelist()
+def validate_handler():
+	print("validate_handler from api")
