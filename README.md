@@ -448,3 +448,29 @@ or low-privilege users. Explain it in the context of permission_query_conditions
 2. Demonstrate: what happens when you register "*" AND a specific DocType handler for the same event? Do both run?
 
 -> Both also runs but first the * will run and then the specific doctype handles of the event will run.
+
+# Section F3 Asset Hooks
+
+1. what is the difference? When would you use each?
+
+-> app_include_js - Loads JS only in Desk (logged-in users)
+-> Used for admin features, form logic, dashboards
+
+-> web_include_js - Loads JS only in Website/Portal pages
+-> Used for users, customers, public UI, landing pages, portals
+
+2. what DocType would use a tree view and why
+
+-> Used for Tree structured DocTypes because it only mean for tree doctypes
+
+3. explain what bench build --app quickfix does and why assets need cache-busting after JS changes
+
+-> It rebuilds assets and changes file names so browsers don’t use old cached JS.
+
+# Jinja hooks:
+
+1. what is the difference between a Jinja context available in Print Formats vs one available in Web Pages? Are they the same?
+
+-> Print Format: gets data automatically (doc)
+-> Web Page: you must send data manually
+Print = auto data, Web = manual data.

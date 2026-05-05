@@ -31,7 +31,7 @@ class JobCard(Document):
 
 		self.final_amount = self.parts_total + self.labour_charge
 
-		print("Controller validate")
+		return "Controller validate"
 
 	def before_submit(self):
 		if self.status != "Ready for Delivery":
